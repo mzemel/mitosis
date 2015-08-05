@@ -8,6 +8,8 @@ I would like to combine this with a front-end JS application that uses websocket
 
 I'd also like to expand what messages can be given to mitosis, working in a presentation layer that will uniquely format Errors, Audits, and other special events.
 
+![sketch](http://i.imgur.com/wZTl06z.jpg)
+
 ## Installation
 
 Add this line to your application's Gemfile:

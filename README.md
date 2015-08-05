@@ -6,6 +6,8 @@ Each queue represents a different service that embeds this gem - one could provi
 
 I would like to combine this with a front-end JS application that uses websockets to subscribe to the message broker, where each Channel corresponds to a queue.  Thus, you could have an overview of errors coming in real-time by application.
 
+I'd also like to expand what messages can be given to mitosis, working in a presentation layer that will uniquely format Errors, Audits, and other special events.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,12 +24,6 @@ And then execute:
 ## Example use
 
 ```ruby
-class GreviousError < StandardError
-  def message
-    "Record not found!"
-  end
-end
-
 class PostsController
   def show
     @post = Post.find(params[:id])
@@ -37,8 +33,11 @@ class PostsController
 end
 ```
 
-Mitosis will publish your error and re-raise it.
+Mitosis will publish your error (see below) and re-raise it.
 
+```bash
+{"class":"ActiveRecord::RecordNotFound","message":"We could not find a record with that ID!","stacktrace":"/Users/mzemel/Sites/chat/app/controllers/discs_controller.rb:39:in `send_async_error_through_async_log', /Users/mzemel/Sites/chat/app/controllers/discs_controller.rb:27:in `generate_errors', /Users/mzemel/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/actionpack-4.2.3/lib/action_controller/metal/implicit_render.rb:4:in `send_action', /Users/mzemel/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/actionpack-4.2.3/lib/abstract_controller/base.rb:198:in `process_action', ..."}
+```
 
 
 ## Development

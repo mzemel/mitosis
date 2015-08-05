@@ -22,7 +22,7 @@ module Mitosis
         "class" => exception.class.name,
         "message" => exception.message,
         "stacktrace" => exception.backtrace.join(", ")
-      }.to_json
+      }.to_json # To do: make these keys configurable and exposable for types incl. Audits, Errors, etc.
     end
   end
 end

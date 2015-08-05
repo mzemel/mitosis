@@ -5,14 +5,12 @@ require 'json'
 module Mitosis
   class << self
 
-    ACCEPTABLE_QUEUES = %w(test development staging production)
-
     def client
       @client ||= Mitosis::Disque.client
     end
 
-    def log(exception, queue = "anonymous")
-      STDOUT.puts "Unapproved queue (#{queue}) - proceeding..." unless ACCEPTABLE_QUEUES.include?(queue)
+    def log(exception, queue)
+      queue ||= File.basename(Dir.getwd)
       message = convert_to_json(exception)
       client.push(queue, message, 1000)
       STDOUT.puts message

@@ -1,8 +1,10 @@
 # Mitosis
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/mitosis`. To experiment with that code, run `bin/console` for an interactive prompt.
+Mitosis is a Rubygem used to asynchronously publish JSON-encoded error messages to a cental message broker, in this case Disque.
 
-TODO: Delete this and the text above, and describe your gem
+Each queue represents a different service that embeds this gem - one could provide even more information, such as rack/rails environment, server identifier, etc.
+
+I would like to combine this with a front-end JS application that uses websockets to subscribe to the message broker, where each Channel corresponds to a queue.  Thus, you could have an overview of errors coming in real-time by application.
 
 ## Installation
 
@@ -16,21 +18,41 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
 
-    $ gem install mitosis
+## Example use
 
-## Usage
+```ruby
+class GreviousError < StandardError
+  def message
+    "Record not found!"
+  end
+end
 
-TODO: Write usage instructions here
+class PostsController
+  def show
+    @post = Post.find(params[:id])
+  rescue ActiveRecord::RecordNotFound => e
+    Mitosis.log(e, queue = Rails.env)
+  end
+end
+```
+
+Mitosis will publish your error and re-raise it.
+
+
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake false` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, you can start and stop a test Disque server with `bin/start_test_disque` and `bin/stop_test_disque`, respectively, but you should be free to test it out with:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```ruby
+bundle
+bundle exec rspec
+```
+
+to verify that it can connect to the message broker.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/mitosis.
+Bug reports and pull requests are welcome on GitHub at https://github.com/mzemel/mitosis.
 

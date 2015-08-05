@@ -13,7 +13,6 @@ module Mitosis
       queue ||= File.basename(Dir.getwd)
       message = convert_to_json(exception)
       client.push(queue, message, 1000)
-      STDOUT.puts message
       raise exception
     end
 

@@ -4,9 +4,7 @@ Mitosis is a Rubygem used to asynchronously publish JSON-encoded error messages 
 
 Each queue represents a different service that embeds this gem - one could provide even more information, such as rack/rails environment, server identifier, etc.
 
-I would like to combine this with a front-end JS application that uses websockets to subscribe to the message broker, where each Channel corresponds to a queue.  Thus, you could have an overview of errors coming in real-time by application.
-
-I'd also like to expand what messages can be given to mitosis, working in a presentation layer that will uniquely format Errors, Audits, and other special events.
+I would like to combine this with a subscribing application (not included) that uses ActionCable (from Rails5) and websockets to serve an HTML page where you can watch your messages (errors, audits, etc.) coming in real-time, sorted by application, or create a query of stored messages.
 
 ![sketch](http://i.imgur.com/wZTl06z.jpg)
 

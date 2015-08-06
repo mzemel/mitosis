@@ -19,11 +19,11 @@ module Mitosis
     end
 
     def self.error_queue
-      @error_queue ||= Redis::Queue.new('error', File.basename(Dir.getwd), :redis => redis)
+      @error_queue ||= ::Redis::Queue.new("#{File.basename(Dir.getwd)}:error", "what_does_this_do", :redis => @client)
     end
 
     def self.audit_queue
-      @audit_queue ||= Redis::Queue.new('audit', File.basename(Dir.getwd), :redis => redis)
+      @audit_queue ||= ::Redis::Queue.new("#{File.basename(Dir.getwd)}:audit", "what_does_this_do", :redis => @client)
     end
   end
 end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Database Connection" do
+describe "Redis" do
 
   before :all do
     system("bin/start_test_redis &")
@@ -17,12 +17,21 @@ describe "Database Connection" do
     exit 0
   end
 
-  it "starts, stops, writes to, and can read from Redis" do
+  it "allows simple read/write" do
     message = "message"
     queue = "test"
 
     @client.set(queue, message)
 
     expect(@client.get(queue)).to eq(message)
+  end
+
+  it "can use queues" do
+    queue = Mitosis::Redis.error_queue
+    queue_name = "#{File.basename(Dir.getwd)}:error"
+    message = "message"
+
+    queue.push(message)
+    expect(@client.llen(queue_name)).to eq(1)
   end
 end

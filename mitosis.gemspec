@@ -30,8 +30,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "3.2.0"
   spec.add_development_dependency "pry", "0.9.12"
-  spec.add_development_dependency "redis"
-  spec.add_development_dependency "redis-queue"
-  spec.add_development_dependency "hiredis"
+
+  spec.add_runtime_dependency "redis", ">= 3.0.4", "~> 3.0"
+  spec.add_runtime_dependency "redis-queue"
+  spec.add_runtime_dependency "hiredis", ">= 0.5.2", "~> 0.5"
 
 end

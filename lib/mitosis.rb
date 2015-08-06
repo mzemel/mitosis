@@ -16,6 +16,8 @@ module Mitosis
     def log(exception)
       queue = exception.is_a?(Exception) ? error_queue : audit_queue
       message = convert_to_json(exception)
+      require 'pry'
+      binding.pry
 
       queue.push(message)
     end

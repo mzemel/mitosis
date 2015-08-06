@@ -5,15 +5,19 @@ require 'json'
 module Mitosis
   class << self
 
-    def client
-      @client ||= Mitosis::Redis.client
+    def error_queue
+      @error_queue ||= Mitosis::Redis.error_queue
     end
 
-    def log(exception, queue = nil)
-      queue ||= File.basename(Dir.getwd)
+    def audit_queue
+      @audit_queue ||= Mitosis::Redis.audit_queue
+    end
+
+    def log(exception)
+      queue = exception.is_a?(Exception) ? error_queue : audit_queue
       message = convert_to_json(exception)
-      puts queue
-      client.push(queue, message, 1000)
+
+      queue.push(message)
     end
 
     def convert_to_json(exception)

@@ -1,6 +1,6 @@
 # Mitosis
 
-Mitosis is a Rubygem used to asynchronously publish JSON-encoded error messages to a cental message broker, in this case Disque.
+Mitosis is a Rubygem used to asynchronously publish JSON-encoded error messages to a cental message broker, in this case Redis.
 
 Each queue represents a different service that embeds this gem - one could provide even more information, such as rack/rails environment, server identifier, etc.
 
@@ -42,7 +42,7 @@ Mitosis will then publish your caught error (see below):
 
 ## Development
 
-After checking out the repo, you can start and stop a test Disque server with `bin/start_test_disque` and `bin/stop_test_disque`, respectively, but you should be free to test it out with:
+After checking out the repo, you can start and stop a test Redis server with `bin/start_test_redis` and `bin/stop_test_redis`, respectively, but you should be free to test it out with:
 
 ```ruby
 bundle

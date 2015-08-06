@@ -1,12 +1,12 @@
 require "mitosis/version"
-require "mitosis/disque"
+require "mitosis/redis"
 require 'json'
 
 module Mitosis
   class << self
 
     def client
-      @client ||= Mitosis::Disque.client
+      @client ||= Mitosis::Redis.client
     end
 
     def log(exception, queue = nil)

@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["mzemel@sweetspotdiabetes.com"]
 
   spec.summary       = "Mitosis is a rubygem to publish your errors to a message queue"
-  spec.description   = "Use this gem with an HTML page that subscribes to Disque or Redis to see real-time errors"
+  spec.description   = "Use this gem with an HTML page that subscribes to Redis to see real-time errors"
   spec.homepage      = "http://sweetspotdiabetes.com"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "3.2.0"
   spec.add_development_dependency "pry", "0.9.12"
-
-  spec.add_runtime_dependency "disque", "~> 0.0", ">= 0.0.6"
+  spec.add_development_dependency "redis"
+  spec.add_development_dependency "hiredis"
 
 end

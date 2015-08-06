@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# Start Disque on test-only port
-sed 's/7711/7710/g' /Users/mzemel/Sites/disque/disque.conf >/Users/mzemel/Sites/disque/disque_test.conf
-cd /Users/mzemel/Sites/disque && src/disque-server --port 7710

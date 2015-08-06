@@ -3,32 +3,26 @@ require 'spec_helper'
 describe "Database Connection" do
 
   before :all do
-    @disque_pid = Process.fork do
-      exec("bin/start_test_disque")
-      sleep 5 # sleep while disque starts up
-    end
-    @client ||= Mitosis::Disque.client
+    system("bin/start_test_redis &")
+    sleep 5
+    @client ||= Mitosis::Redis.client
   end
 
   after :all do
-    Process.kill("KILL", @disque_pid)
+    system("bin/stop_test_redis")
   end
 
   trap "SIGINT" do
-    Process.kill("KILL", @disque_pid)
+    system("bin/stop_test_redis")
     exit 0
   end
 
-  it "starts, stops, writes to, and can read from Disque" do
+  it "starts, stops, writes to, and can read from Redis" do
     message = "message"
     queue = "test"
-    return_message = ""
 
-    @client.push(queue, message, 100)
-    @client.fetch(from: "test") do |m|
-      return_message = m
-    end
+    @client.set(queue, message)
 
-    expect(message).to eq(return_message)
+    expect(@client.get(queue)).to eq(message)
   end
 end

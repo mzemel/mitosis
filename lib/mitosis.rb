@@ -9,11 +9,11 @@ module Mitosis
       @client ||= Mitosis::Disque.client
     end
 
-    def log(exception, queue)
+    def log(exception, queue = nil)
       queue ||= File.basename(Dir.getwd)
       message = convert_to_json(exception)
+      puts queue
       client.push(queue, message, 1000)
-      raise exception
     end
 
     def convert_to_json(exception)

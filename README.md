@@ -33,7 +33,7 @@ class PostsController
 end
 ```
 
-Mitosis will publish your error (see below) and re-raise it.
+Mitosis will then publish your caught error (see below):
 
 ```bash
 {"class":"ActiveRecord::RecordNotFound","message":"We could not find a record with that ID!","stacktrace":"/Users/mzemel/Sites/chat/app/controllers/discs_controller.rb:39:in `send_async_error_through_async_log', /Users/mzemel/Sites/chat/app/controllers/discs_controller.rb:27:in `generate_errors', /Users/mzemel/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/actionpack-4.2.3/lib/action_controller/metal/implicit_render.rb:4:in `send_action', /Users/mzemel/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/actionpack-4.2.3/lib/abstract_controller/base.rb:198:in `process_action', ..."}
